@@ -7,6 +7,10 @@
 		"directory": "./dist",
 		"binding": "ASSETS"
 	},
+	"route": {
+		"pattern": "terndemo.hottoddie.org/*",
+		"zone_name": "hottoddie.org"
+	},
 	"observability": {
 		"enabled": true
 	}
