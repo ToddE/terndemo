@@ -1,12 +1,18 @@
 export const prerender = false;
 
 export async function GET({ redirect, url, locals }) {
-  // Try to get env from Cloudflare runtime, then fallback to process.env (for local dev)
   const env = locals?.runtime?.env || process.env;
-  const client_id = env.GITHUB_CLIENT_ID;
-  
+  const client_id = env?.GITHUB_CLIENT_ID;
+
   if (!client_id) {
-    return new Response("Configuration Error: GITHUB_CLIENT_ID is missing.", { status: 500 });
+    return new Response(`
+      <h1>Configuration Error</h1>
+      <p>GITHUB_CLIENT_ID is not defined in the environment.</p>
+      <p>Current environment keys: ${Object.keys(env || {}).join(", ")}</p>
+    `, { 
+      status: 500,
+      headers: { "Content-Type": "text/html" }
+    });
   }
 
   const scope = "repo,user";

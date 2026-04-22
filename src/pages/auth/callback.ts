@@ -3,11 +3,11 @@ export const prerender = false;
 export async function GET({ url, locals }) {
   const code = url.searchParams.get("code");
   const env = locals?.runtime?.env || process.env;
-  const client_id = env.GITHUB_CLIENT_ID;
-  const client_secret = env.GITHUB_CLIENT_SECRET;
+  const client_id = env?.GITHUB_CLIENT_ID;
+  const client_secret = env?.GITHUB_CLIENT_SECRET;
 
   if (!client_id || !client_secret) {
-    return new Response("Configuration Error: GITHUB_CLIENT_ID or SECRET is missing.", { status: 500 });
+    return new Response("Configuration Error: GITHUB_CLIENT_ID or SECRET missing.", { status: 500 });
   }
 
   if (!code) {
@@ -20,6 +20,7 @@ export async function GET({ url, locals }) {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        "User-Agent": "Astro-Decap-CMS-Proxy"
       },
       body: JSON.stringify({
         client_id,
@@ -31,26 +32,31 @@ export async function GET({ url, locals }) {
     const data = await response.json();
 
     if (data.error) {
-      return new Response(`Error: ${data.error_description}`, { status: 400 });
+      return new Response(`GitHub Error: ${data.error_description || data.error}`, { status: 400 });
     }
 
+    // Prepare the script payload carefully
+    const payload = JSON.stringify({
+      token: data.access_token,
+      provider: "github"
+    });
+
     const content = `
+      <!DOCTYPE html>
       <html>
-        <body>
-          <script>
-            (function() {
-              function recieveMessage(e) {
-                console.log("Recieved message:", e.data);
-                window.opener.postMessage(
-                  'authorization:github:success:${JSON.stringify(data)}',
-                  e.origin
-                );
-              }
-              window.addEventListener("message", recieveMessage, false);
-              window.opener.postMessage("authorizing:github", "*");
-            })()
-          </script>
-        </body>
+      <head><title>Authorizing...</title></head>
+      <body>
+        <script>
+          (function() {
+            function receiveMessage(e) {
+              console.log("CMS Handshake received from:", e.origin);
+              window.opener.postMessage("authorization:github:success:${payload}", e.origin);
+            }
+            window.addEventListener("message", receiveMessage, false);
+            window.opener.postMessage("authorizing:github", "*");
+          })();
+        </script>
+      </body>
       </html>
     `;
 
@@ -58,6 +64,6 @@ export async function GET({ url, locals }) {
       headers: { "Content-Type": "text/html" },
     });
   } catch (err) {
-    return new Response(`Internal Server Error: ${err.message}`, { status: 500 });
+    return new Response(`Proxy Error: ${err.message}`, { status: 500 });
   }
 }
