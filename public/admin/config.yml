@@ -1,7 +1,9 @@
 backend:
   name: github
-  repo: ToddE/terndemo # This should be updated to the actual repo name
+  repo: ToddE/terndemo
   branch: main
+  base_url: https://terndemo.hottoddie.org
+  auth_endpoint: auth
   publish_mode: editorial_workflow
 
 local_backend: true
