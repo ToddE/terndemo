@@ -58,16 +58,23 @@ The site features a built-in Content Management System (CMS) that allows you to 
 ### 1. Accessing the Admin Panel
 Once the site is deployed, navigate to: `https://your-domain.com/admin`
 
-### 2. Updating Content
-- **Pages**: You can edit the content for the Home, About, and Solution pages.
-- **News & Resources**: You can create new articles, whitepapers, or research reports.
-- **Media**: Upload images directly through the CMS; they will be optimized automatically.
+### 2. Updating Content & Editorial Workflow
+Decap CMS uses a Git-based workflow, meaning every save or publish action translates to a Git commit in the repository.
+
+- **Pages**: Edit the static content for Home, About, and Solution pages.
+- **News & Resources**: Create new articles, whitepapers, or research reports.
+- **Podcasts**: Add new episodes by selecting the "Podcast" category. You can embed audio using standard iframe tags in the Markdown body.
+- **Media**: Upload images directly through the CMS. They are saved to `public/images/uploads` and automatically optimized by Astro during the build process.
+
+**Drafts vs. Publishing**:
+1. **Save Draft**: If you enable the Editorial Workflow in `config.yml`, saving creates a pull request.
+2. **Publish**: Clicking "Publish" commits the changes to the `main` branch.
 
 ### 3. How Publishing Works
 When you click **"Publish"** in the CMS:
-1. The CMS creates a new "Commit" in GitHub.
-2. Cloudflare Pages detects the change.
-3. The site is automatically rebuilt and deployed (takes about 1-2 minutes).
+1. The CMS creates a new commit in your GitHub repository on the `main` branch.
+2. Cloudflare Pages automatically detects the new commit via its GitHub integration.
+3. The site is rebuilt securely and deployed globally to the edge network (takes ~1-2 minutes).
 
 ### 4. Managing Menus
 Menus are currently managed in `src/components/Header.astro`. To add a new navigation item, a developer will need to update the `navItems` array in that file.

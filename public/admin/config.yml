@@ -2,9 +2,12 @@ backend:
   name: github
   repo: ToddE/terndemo # This should be updated to the actual repo name
   branch: main
+  publish_mode: editorial_workflow
 
 media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
+
+
 
 collections:
   - name: "pages"

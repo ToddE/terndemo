@@ -19,6 +19,7 @@ const news = defineCollection({
     description: z.string(),
     image: z.string().optional(),
     category: z.enum(['News', 'Whitepaper', 'Research', 'Podcast']),
+    audioUrl: z.string().optional(),
   }),
 });
 
