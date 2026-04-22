@@ -1,26 +1,27 @@
 export const prerender = false;
 
-export async function GET({ url, locals }) {
-  const code = url.searchParams.get("code");
-  const env = locals?.runtime?.env || process.env;
-  const client_id = env?.GITHUB_CLIENT_ID;
-  const client_secret = env?.GITHUB_CLIENT_SECRET;
-
-  if (!client_id || !client_secret) {
-    return new Response("Configuration Error: GITHUB_CLIENT_ID or SECRET missing.", { status: 500 });
-  }
-
-  if (!code) {
-    return new Response("Error: No code provided from GitHub.", { status: 400 });
-  }
-
+export async function GET(context) {
   try {
+    const { url, locals } = context;
+    const code = url.searchParams.get("code");
+    const env = locals?.runtime?.env || (globalThis as any);
+    const client_id = env?.GITHUB_CLIENT_ID;
+    const client_secret = env?.GITHUB_CLIENT_SECRET;
+
+    if (!client_id || !client_secret) {
+      return new Response("Missing GITHUB_CLIENT_ID or GITHUB_CLIENT_SECRET in environment.", { status: 500 });
+    }
+
+    if (!code) {
+      return new Response("No code provided from GitHub.", { status: 400 });
+    }
+
     const response = await fetch("https://github.com/login/oauth/access_token", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        "User-Agent": "Astro-Decap-CMS-Proxy"
+        "User-Agent": "Tern-CMS-Proxy"
       },
       body: JSON.stringify({
         client_id,
@@ -35,7 +36,6 @@ export async function GET({ url, locals }) {
       return new Response(`GitHub Error: ${data.error_description || data.error}`, { status: 400 });
     }
 
-    // Prepare the script payload carefully
     const payload = JSON.stringify({
       token: data.access_token,
       provider: "github"
@@ -49,7 +49,6 @@ export async function GET({ url, locals }) {
         <script>
           (function() {
             function receiveMessage(e) {
-              console.log("CMS Handshake received from:", e.origin);
               window.opener.postMessage("authorization:github:success:${payload}", e.origin);
             }
             window.addEventListener("message", receiveMessage, false);
@@ -64,6 +63,6 @@ export async function GET({ url, locals }) {
       headers: { "Content-Type": "text/html" },
     });
   } catch (err) {
-    return new Response(`Proxy Error: ${err.message}`, { status: 500 });
+    return new Response(`Critical Callback Crash: ${err.message}\nStack: ${err.stack}`, { status: 500 });
   }
 }
