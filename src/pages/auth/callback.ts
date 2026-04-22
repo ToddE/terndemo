@@ -1,16 +1,18 @@
 export const prerender = false;
 
+// @ts-ignore
+import { env as cfEnv } from 'cloudflare:workers';
+
 export async function GET(context) {
   try {
-    const { url, locals } = context;
+    const { url } = context;
     const code = url.searchParams.get("code");
-    const runtime = locals.runtime;
-    const env = runtime?.env;
+    const env = cfEnv;
     const client_id = env?.GITHUB_CLIENT_ID;
     const client_secret = env?.GITHUB_CLIENT_SECRET;
 
     if (!client_id || !client_secret) {
-      return new Response("Missing GITHUB_CLIENT_ID or GITHUB_CLIENT_SECRET in environment.", { status: 500 });
+      return new Response("Missing GITHUB_CLIENT_ID or GITHUB_CLIENT_SECRET in environment (using cloudflare:workers).", { status: 500 });
     }
 
     if (!code) {
@@ -64,6 +66,6 @@ export async function GET(context) {
       headers: { "Content-Type": "text/html" },
     });
   } catch (err) {
-    return new Response(`Astro 6 Callback Error: ${err.message}`, { status: 500 });
+    return new Response(`Astro 6 Virtual Callback Error: ${err.message}`, { status: 500 });
   }
 }

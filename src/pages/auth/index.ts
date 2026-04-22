@@ -1,14 +1,14 @@
 export const prerender = false;
 
+// @ts-ignore
+import { env as cfEnv } from 'cloudflare:workers';
+
 export async function GET(context) {
   try {
-    const { url, locals } = context;
+    const { url } = context;
     
-    // In Astro 6, the runtime is available directly on context.locals.runtime
-    // But we will be extra careful.
-    const runtime = locals.runtime;
-    const env = runtime?.env;
-    
+    // Attempting the method suggested by the Astro 6 error message
+    const env = cfEnv;
     const client_id = env?.GITHUB_CLIENT_ID;
 
     if (!client_id) {
@@ -18,12 +18,9 @@ export async function GET(context) {
             <h1 style="color: #D80041;">Configuration Error</h1>
             <p><strong>GITHUB_CLIENT_ID</strong> was not found in the environment.</p>
             <hr>
-            <p><strong>Debug Info:</strong></p>
-            <pre>${JSON.stringify({
-              hasLocals: !!locals,
-              hasRuntime: !!locals?.runtime,
-              envKeys: Object.keys(env || {})
-            }, null, 2)}</pre>
+            <p><strong>Diagnostic Info:</strong></p>
+            <p>We tried using <code>import { env } from 'cloudflare:workers'</code> as suggested by the error.</p>
+            <p>Keys found: ${Object.keys(env || {}).join(", ") || "none"}</p>
           </body>
         </html>
       `, { 
@@ -39,6 +36,6 @@ export async function GET(context) {
       `https://github.com/login/oauth/authorize?client_id=${client_id}&scope=${scope}&redirect_uri=${redirect_uri}`
     );
   } catch (err) {
-    return new Response(`Astro 6 Error: ${err.message}`, { status: 500 });
+    return new Response(`Astro 6 Virtual Module Error: ${err.message}`, { status: 500 });
   }
 }
