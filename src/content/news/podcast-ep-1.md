@@ -5,7 +5,7 @@ description: Join us for our inaugural episode as we discuss the evolving
   landscape of mentorship with industry leaders.
 image: /images/uploads/graphics-episode-art-tttf-kate-byrne-square-1.jpg.webp
 category: Podcast
-audioFile: https://open.spotify.com/episode/4ENeXU9UIURLTt4KTw7NT4?si=KpwDO1bNTHOwfRttPMa1Qg
+audioFile: https://cloudfeed.podetize.com/9iF4_ykOC.mp3
 ---
 
 # Episode 1: The Future of Mentorship
