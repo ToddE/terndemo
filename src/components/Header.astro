@@ -1,4 +1,6 @@
 ---
+import logo from '../assets/images/TERN-Mentoring_Logo_Horizontal_FullColor.svg';
+
 const navItems = [
   { name: 'About Us', href: '/about-us' },
   { name: 'The TERN Solution', href: '/the-tern-solution' },
@@ -10,7 +12,7 @@ const navItems = [
 <header class="fixed top-0 w-full z-50 transition-all duration-300 bg-white/80 backdrop-blur-md border-b border-white/20">
   <nav class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
     <a href="/" class="flex items-center gap-2 group">
-      <img src="/src/assets/images/TERN-Mentoring_Logo_Horizontal_FullColor.svg" alt="Tern Mentoring Logo" class="h-10 w-auto" />
+      <img src={logo.src} alt="Tern Mentoring Logo" class="h-10 w-auto" />
     </a>
 
     <!-- Desktop Nav -->

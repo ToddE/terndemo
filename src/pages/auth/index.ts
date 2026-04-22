@@ -1,11 +1,15 @@
 export const prerender = false;
 
 export async function GET({ redirect, url, locals }) {
-  const env = locals.runtime.env;
+  // Try to get env from Cloudflare runtime, then fallback to process.env (for local dev)
+  const env = locals?.runtime?.env || process.env;
   const client_id = env.GITHUB_CLIENT_ID;
-  const scope = "repo,user";
   
-  // This is the URL that GitHub will redirect back to
+  if (!client_id) {
+    return new Response("Configuration Error: GITHUB_CLIENT_ID is missing.", { status: 500 });
+  }
+
+  const scope = "repo,user";
   const redirect_uri = `${url.origin}/auth/callback`;
   
   return redirect(

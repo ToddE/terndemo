@@ -2,9 +2,17 @@ export const prerender = false;
 
 export async function GET({ url, locals }) {
   const code = url.searchParams.get("code");
-  const env = locals.runtime.env;
+  const env = locals?.runtime?.env || process.env;
   const client_id = env.GITHUB_CLIENT_ID;
   const client_secret = env.GITHUB_CLIENT_SECRET;
+
+  if (!client_id || !client_secret) {
+    return new Response("Configuration Error: GITHUB_CLIENT_ID or SECRET is missing.", { status: 500 });
+  }
+
+  if (!code) {
+    return new Response("Error: No code provided from GitHub.", { status: 400 });
+  }
 
   try {
     const response = await fetch("https://github.com/login/oauth/access_token", {
@@ -26,7 +34,6 @@ export async function GET({ url, locals }) {
       return new Response(`Error: ${data.error_description}`, { status: 400 });
     }
 
-    // This script sends the token back to the Decap CMS window
     const content = `
       <html>
         <body>
