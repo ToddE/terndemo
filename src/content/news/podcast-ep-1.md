@@ -1,10 +1,11 @@
 ---
 title: "Episode 1: The Future of Mentorship"
 date: 2024-05-01
-description: "Join us for our inaugural episode as we discuss the evolving landscape of mentorship with industry leaders."
-category: "Podcast"
-image: "/images/uploads/graphics-episode-art-tttf-kate-byrne-square-1.jpg.webp"
-audioFile: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+description: Join us for our inaugural episode as we discuss the evolving
+  landscape of mentorship with industry leaders.
+image: /images/uploads/graphics-episode-art-tttf-kate-byrne-square-1.jpg.webp
+category: Podcast
+audioFile: https://open.spotify.com/episode/4ENeXU9UIURLTt4KTw7NT4?si=KpwDO1bNTHOwfRttPMa1Qg
 ---
 
 # Episode 1: The Future of Mentorship
