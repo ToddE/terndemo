@@ -56,7 +56,10 @@ A deployment workflow is included in `.github/workflows/deploy.yml`. To use it:
 The site features a built-in Content Management System (CMS) that allows you to update the website without touching any code.
 
 ### 1. Accessing the Admin Panel
-Once the site is deployed, navigate to: `https://your-domain.com/admin`
+- **Production**: Navigate to `https://your-domain.com/admin`
+- **Local Development**: Run `npm run dev` and navigate to `http://localhost:4321/admin`. 
+
+**Note on Local Publishing**: In local development, the CMS uses a proxy server (`decap-server`) to write changes directly to your local files instead of committing to GitHub. This allows you to see content changes instantly in the dev server.
 
 ### 2. Updating Content & Editorial Workflow
 Decap CMS uses a Git-based workflow, meaning every save or publish action translates to a Git commit in the repository.
