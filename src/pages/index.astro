@@ -7,7 +7,7 @@ import Hero from '../components/Hero.astro';
 
 const homeEntry = await getEntry('pages', 'home');
 const { Content } = await render(homeEntry);
-const { title, heroTitle, heroSubtitle, heroCtaText } = homeEntry.data;
+const { title, heroTitle, heroSubtitle, heroCtaText, advantages } = homeEntry.data;
 ---
 
 <Layout title={title}>
@@ -34,11 +34,7 @@ const { title, heroTitle, heroSubtitle, heroCtaText } = homeEntry.data;
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {[
-          { title: 'Research-Driven', desc: 'Our approach is backed by deep analysis of current workforce trends and student needs.', icon: '📊' },
-          { title: 'Professional Network', desc: 'Connecting students with experienced professionals outside their immediate circle.', icon: '🤝' },
-          { title: 'Soft Skill Focus', desc: 'Bridging the gap in communication and networking abilities valued by employers.', icon: '💡' }
-        ].map(feature => (
+        {advantages && advantages.map(feature => (
           <div class="glass-card p-8 hover:scale-105 transition-transform duration-300">
             <div class="text-4xl mb-6">{feature.icon}</div>
             <h3 class="text-xl font-bold mb-4">{feature.title}</h3>

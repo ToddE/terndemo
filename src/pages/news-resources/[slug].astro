@@ -38,9 +38,18 @@ const { Content } = await render(entry);
         </div>
       )}
 
-      {entry.data.audioUrl && (
-        <div class="mb-16 w-full rounded-2xl overflow-hidden bg-brand-blue-light/20 p-4">
-          <iframe style="border-radius:12px" src={entry.data.audioUrl} width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      {entry.data.audioFile && (
+        <div class="mb-16 w-full rounded-2xl overflow-hidden bg-brand-blue-light/20 p-6 flex flex-col items-center shadow-lg border border-brand-blue-light">
+          <h3 class="text-lg font-bold mb-4 text-brand-magenta flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+            </svg>
+            Listen to this Podcast
+          </h3>
+          <audio controls class="w-full max-w-2xl">
+            <source src={entry.data.audioFile} type="audio/mpeg" />
+            Your browser does not support the audio element.
+          </audio>
         </div>
       )}
 

@@ -1,15 +1,16 @@
 ---
 import { Image } from 'astro:assets';
-import heroImage from '../assets/images/woman-with-wings-cropped.png';
+import defaultHeroImage from '../assets/images/woman-with-wings-cropped.png';
 
 interface Props {
   title: string;
   subtitle: string;
   ctaText: string;
   ctaHref?: string;
+  heroImage?: string | any;
 }
 
-const { title, subtitle, ctaText, ctaHref = "/contact" } = Astro.props;
+const { title, subtitle, ctaText, ctaHref = "/contact", heroImage = defaultHeroImage } = Astro.props;
 ---
 
 <section class="relative min-h-[80vh] flex items-center overflow-hidden bg-brand-blue-light/20">
@@ -42,7 +43,11 @@ const { title, subtitle, ctaText, ctaHref = "/contact" } = Astro.props;
       <div class="relative">
         <div class="absolute -inset-4 bg-gradient-to-tr from-brand-magenta to-transparent opacity-20 blur-2xl rounded-[2rem]"></div>
         <div class="glass-card p-4 relative overflow-hidden aspect-[4/3] flex items-center justify-center bg-white">
-          <Image src={heroImage} alt="Mentoring concept" class="w-full h-full object-cover rounded-xl" quality="high" />
+          {typeof heroImage === 'string' ? (
+            <img src={heroImage} alt="Mentoring concept" class="w-full h-full object-cover rounded-xl" />
+          ) : (
+            <Image src={heroImage} alt="Mentoring concept" class="w-full h-full object-cover rounded-xl" quality="high" />
+          )}
         </div>
       </div>
     </div>

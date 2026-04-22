@@ -8,6 +8,12 @@ const pages = defineCollection({
     heroTitle: z.string().optional(),
     heroSubtitle: z.string().optional(),
     heroCtaText: z.string().optional(),
+    heroImage: z.string().optional(),
+    advantages: z.array(z.object({
+      title: z.string(),
+      desc: z.string(),
+      icon: z.string()
+    })).optional(),
   }),
 });
 
@@ -19,7 +25,7 @@ const news = defineCollection({
     description: z.string(),
     image: z.string().optional(),
     category: z.enum(['News', 'Whitepaper', 'Research', 'Podcast']),
-    audioUrl: z.string().optional(),
+    audioFile: z.string().optional(),
   }),
 });
 

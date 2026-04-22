@@ -21,6 +21,15 @@ collections:
           - { label: "Hero Title", name: "heroTitle", widget: "string" }
           - { label: "Hero Subtitle", name: "heroSubtitle", widget: "text" }
           - { label: "Hero CTA Text", name: "heroCtaText", widget: "string" }
+          - { label: "Hero Image", name: "heroImage", widget: "image", required: false }
+          - label: "The TERN Advantage Features"
+            name: "advantages"
+            widget: "list"
+            required: false
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "desc", widget: "text" }
+              - { label: "Icon/Emoji", name: "icon", widget: "string" }
           - { label: "Body", name: "body", widget: "markdown" }
       - file: "src/content/pages/about.md"
         label: "About Page"
@@ -46,4 +55,5 @@ collections:
       - { label: "Description", name: "description", widget: "text" }
       - { label: "Image", name: "image", widget: "image" }
       - { label: "Category", name: "category", widget: "select", options: ["News", "Whitepaper", "Research", "Podcast"] }
+      - { label: "Audio/Podcast File (Optional)", name: "audioFile", widget: "file", required: false, hint: "Upload an MP3 file directly to the site." }
       - { label: "Body", name: "body", widget: "markdown" }

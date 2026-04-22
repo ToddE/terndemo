@@ -4,7 +4,7 @@ date: 2024-05-01
 description: "Join us for our inaugural episode as we discuss the evolving landscape of mentorship with industry leaders."
 category: "Podcast"
 image: "/images/news-1.jpg"
-audioUrl: "https://open.spotify.com/embed/episode/7makk4oTQel546B0PZlVR5?utm_source=generator"
+audioFile: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
 ---
 
 # Episode 1: The Future of Mentorship
