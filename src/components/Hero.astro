@@ -1,0 +1,50 @@
+---
+import { Image } from 'astro:assets';
+import heroImage from '../assets/images/woman-with-wings-cropped.png';
+
+interface Props {
+  title: string;
+  subtitle: string;
+  ctaText: string;
+  ctaHref?: string;
+}
+
+const { title, subtitle, ctaText, ctaHref = "/contact" } = Astro.props;
+---
+
+<section class="relative min-h-[80vh] flex items-center overflow-hidden bg-brand-blue-light/20">
+  <!-- Background Elements -->
+  <div class="absolute top-0 right-0 -mr-20 -mt-20 w-[500px] h-[500px] bg-brand-magenta/5 rounded-full blur-3xl"></div>
+  <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-[400px] h-[400px] bg-brand-magenta/10 rounded-full blur-3xl"></div>
+
+  <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+    <div class="animate-slide-up">
+      <span class="inline-block py-1 px-4 rounded-full bg-brand-magenta/10 text-brand-magenta text-sm font-bold mb-6">
+        Next-Generation Mentoring
+      </span>
+      <h1 class="text-5xl md:text-7xl font-extrabold mb-8 leading-tight">
+        {title}
+      </h1>
+      <p class="text-xl text-brand-grey-dark mb-10 max-w-lg leading-relaxed">
+        {subtitle}
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <a href={ctaHref} class="btn-primary">
+          {ctaText}
+        </a>
+        <a href="/about-us" class="btn-outline">
+          Learn Our Mission
+        </a>
+      </div>
+    </div>
+    
+    <div class="hidden lg:block animate-fade-in delay-300">
+      <div class="relative">
+        <div class="absolute -inset-4 bg-gradient-to-tr from-brand-magenta to-transparent opacity-20 blur-2xl rounded-[2rem]"></div>
+        <div class="glass-card p-4 relative overflow-hidden aspect-[4/3] flex items-center justify-center bg-white">
+          <Image src={heroImage} alt="Mentoring concept" class="w-full h-full object-cover rounded-xl" quality="high" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

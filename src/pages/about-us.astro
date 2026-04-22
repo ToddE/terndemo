@@ -1,0 +1,29 @@
+---
+import { getEntry, render } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const aboutEntry = await getEntry('pages', 'about');
+const { Content } = await render(aboutEntry);
+const { title } = aboutEntry.data;
+---
+
+<Layout title={title}>
+  <Header slot="header" />
+  
+  <section class="bg-brand-magenta text-white py-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <h1 class="text-5xl md:text-6xl font-extrabold mb-6 animate-slide-up">{title}</h1>
+      <p class="text-xl opacity-90 max-w-2xl animate-fade-in delay-200">Learn about our mission to reshape mentorship for the next generation.</p>
+    </div>
+  </section>
+
+  <section class="section-padding">
+    <div class="prose prose-lg max-w-4xl mx-auto prose-headings:text-brand-magenta">
+      <Content />
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</Layout>

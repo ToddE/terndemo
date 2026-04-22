@@ -1,0 +1,46 @@
+---
+import { getEntry, render } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const solutionEntry = await getEntry('pages', 'solution');
+const { Content } = await render(solutionEntry);
+const { title } = solutionEntry.data;
+---
+
+<Layout title={title}>
+  <Header slot="header" />
+  
+  <section class="bg-brand-blue-light/30 py-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <span class="text-brand-magenta font-bold tracking-widest uppercase text-sm mb-4 block animate-slide-up">Our Approach</span>
+      <h1 class="text-5xl md:text-6xl font-extrabold mb-6 animate-slide-up delay-100">{title}</h1>
+      <p class="text-xl text-brand-grey-dark max-w-2xl animate-fade-in delay-300">Modern mentorship strategies for the next generation of professionals.</p>
+    </div>
+  </section>
+
+  <section class="section-padding">
+    <div class="prose prose-lg max-w-4xl mx-auto prose-headings:text-brand-magenta">
+      <Content />
+    </div>
+  </section>
+
+  <!-- Interactive Solution Component Placeholder -->
+  <section class="py-24 bg-white overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6">
+       <div class="glass-card p-12 bg-brand-magenta text-white relative">
+         <div class="absolute top-0 right-0 p-8 opacity-10">
+           <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+             <circle cx="100" cy="100" r="100" fill="white"/>
+           </svg>
+         </div>
+         <h2 class="text-4xl font-bold mb-8">Ready to transform your students' future?</h2>
+         <p class="text-xl mb-10 opacity-90 max-w-2xl">Contact us today to learn how TERN Mentoring can be integrated into your institution.</p>
+         <a href="/contact" class="inline-block px-10 py-4 bg-white text-brand-magenta font-bold rounded-full hover:bg-brand-blue-light transition-colors">Get Started</a>
+       </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</Layout>

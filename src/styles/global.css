@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-magenta: #D80041;
+  --color-brand-blue-light: #E1EBF2;
+  --color-brand-grey-dark: #54595F;
+  --color-brand-black: #111111;
+  
+  --font-outfit: "Outfit", sans-serif;
+}
+
+@layer base {
+  :root {
+    --brand-magenta: #D80041;
+    --brand-blue-light: #E1EBF2;
+    --brand-grey-dark: #54595F;
+    --brand-black: #111111;
+    --brand-white: #FFFFFF;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-outfit);
+    color: var(--brand-black);
+    background-color: var(--brand-white);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-8 py-3 bg-brand-magenta text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-brand-magenta/20 active:scale-95 cursor-pointer;
+  }
+
+  .btn-outline {
+    @apply px-8 py-3 border-2 border-brand-magenta text-brand-magenta font-semibold rounded-full transition-all duration-300 hover:bg-brand-magenta hover:text-white active:scale-95 cursor-pointer;
+  }
+
+  .glass-card {
+    @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-xl rounded-2xl;
+  }
+
+  .section-padding {
+    @apply py-20 px-6 max-w-7xl mx-auto;
+  }
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');

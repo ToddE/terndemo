@@ -1,0 +1,51 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const newsItems = (await getCollection('news')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<Layout title="News & Resources">
+  <Header slot="header" />
+  
+  <section class="bg-brand-blue-light/20 py-24">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <h1 class="text-5xl font-extrabold mb-6">News & Resources</h1>
+      <p class="text-xl text-brand-grey-dark max-w-2xl mx-auto">Thought leadership, research, and analysis on next-generation mentoring.</p>
+    </div>
+  </section>
+
+  <section class="section-padding">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+      {newsItems.map(item => (
+        <a href={`/news-resources/${item.id}`} class="group">
+          <div class="glass-card h-full flex flex-col overflow-hidden hover:shadow-2xl transition-all duration-300">
+            <div class="aspect-video bg-brand-blue-light/50 overflow-hidden relative">
+              {item.data.image ? (
+                <img src={item.data.image} alt={item.data.title} class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+              ) : (
+                <div class="w-full h-full flex items-center justify-center text-brand-magenta/20 font-bold text-4xl">TERN</div>
+              )}
+              <span class="absolute top-4 left-4 py-1 px-3 bg-brand-magenta text-white text-xs font-bold rounded-full">{item.data.category}</span>
+            </div>
+            <div class="p-8 flex-grow flex flex-col">
+              <span class="text-xs text-brand-grey-dark/60 mb-2 uppercase tracking-widest">{item.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+              <h3 class="text-xl font-bold mb-4 group-hover:text-brand-magenta transition-colors">{item.data.title}</h3>
+              <p class="text-brand-grey-dark text-sm leading-relaxed line-clamp-3 mb-6">{item.data.description}</p>
+              <span class="mt-auto text-brand-magenta font-bold text-sm flex items-center gap-2 group-hover:gap-4 transition-all">
+                Read More 
+                <span>→</span>
+              </span>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</Layout>

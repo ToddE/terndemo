@@ -1,0 +1,39 @@
+---
+const navItems = [
+  { name: 'About Us', href: '/about-us' },
+  { name: 'The TERN Solution', href: '/the-tern-solution' },
+  { name: 'News & Resources', href: '/news-resources' },
+];
+---
+
+<header class="fixed top-0 w-full z-50 transition-all duration-300 bg-white/80 backdrop-blur-md border-b border-white/20">
+  <nav class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-2 group">
+      <img src="/src/assets/images/TERN-Mentoring_Logo_Horizontal_FullColor.svg" alt="Tern Mentoring Logo" class="h-10 w-auto" />
+    </a>
+
+    <!-- Desktop Nav -->
+    <ul class="hidden md:flex items-center gap-8">
+      {navItems.map(item => (
+        <li>
+          <a href={item.href} class="text-sm font-medium text-brand-grey-dark hover:text-brand-magenta transition-colors relative group">
+            {item.name}
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-magenta transition-all group-hover:w-full"></span>
+          </a>
+        </li>
+      ))}
+      <li>
+        <a href="/contact" class="btn-primary py-2 px-6 text-sm">Book a Free Consultation</a>
+      </li>
+    </ul>
+
+    <!-- Mobile Menu Button (Simplified for now) -->
+    <button class="md:hidden text-brand-black" aria-label="Toggle Menu">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </nav>
+</header>
+
+<div class="h-20"></div> <!-- Spacer for fixed header -->

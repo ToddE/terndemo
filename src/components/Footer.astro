@@ -1,0 +1,53 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-brand-blue-light/30 border-t border-brand-blue-light py-20">
+  <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
+    <div class="col-span-1 md:col-span-2">
+      <div class="flex items-center gap-2 mb-6">
+        <img src="/src/assets/images/tern-footer-logo.png" alt="Tern Mentoring Logo" class="h-12 w-auto" />
+      </div>
+      <p class="text-brand-grey-dark max-w-sm mb-8">
+        Reshaping student success through next-generation mentoring research, analysis, and thought leadership.
+      </p>
+      <div class="flex gap-4">
+        <!-- Social Icons Placeholders -->
+        {['twitter', 'linkedin', 'facebook'].map(social => (
+          <a href={`#${social}`} class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-brand-magenta border border-brand-magenta/10 hover:bg-brand-magenta hover:text-white transition-all shadow-sm">
+            <span class="sr-only">{social}</span>
+            <div class="w-5 h-5 bg-current rounded-sm"></div>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <div>
+      <h4 class="font-bold mb-6">Quick Links</h4>
+      <ul class="space-y-4">
+        <li><a href="/about-us" class="text-brand-grey-dark hover:text-brand-magenta transition-colors">About Us</a></li>
+        <li><a href="/the-tern-solution" class="text-brand-grey-dark hover:text-brand-magenta transition-colors">The TERN Solution</a></li>
+        <li><a href="/news-resources" class="text-brand-grey-dark hover:text-brand-magenta transition-colors">News & Resources</a></li>
+        <li><a href="/podcast" class="text-brand-grey-dark hover:text-brand-magenta transition-colors">Podcast</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="font-bold mb-6">Contact</h4>
+      <ul class="space-y-4 text-brand-grey-dark">
+        <li class="flex gap-3">
+          <span class="text-brand-magenta">📍</span>
+          <span>Charlotte, NC</span>
+        </li>
+        <li class="flex gap-3">
+          <span class="text-brand-magenta">✉️</span>
+          <a href="mailto:info@ternmentoring.com" class="hover:text-brand-magenta transition-colors">info@ternmentoring.com</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="max-w-7xl mx-auto px-6 mt-20 pt-8 border-t border-brand-blue-light text-center text-sm text-brand-grey-dark/60">
+    <p>&copy; {currentYear} TERN Mentoring. All rights reserved.</p>
+  </div>
+</footer>

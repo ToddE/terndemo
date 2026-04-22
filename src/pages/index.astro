@@ -1,0 +1,53 @@
+---
+import { getEntry, render } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Hero from '../components/Hero.astro';
+
+const homeEntry = await getEntry('pages', 'home');
+const { Content } = await render(homeEntry);
+const { title, heroTitle, heroSubtitle, heroCtaText } = homeEntry.data;
+---
+
+<Layout title={title}>
+  <Header slot="header" />
+  
+  <Hero 
+    title={heroTitle} 
+    subtitle={heroSubtitle} 
+    ctaText={heroCtaText} 
+  />
+
+  <section class="section-padding">
+    <div class="prose prose-lg max-w-4xl mx-auto prose-headings:text-brand-magenta prose-a:text-brand-magenta">
+      <Content />
+    </div>
+  </section>
+
+  <!-- Modern Features Section -->
+  <section class="bg-brand-blue-light/20 py-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold mb-4">The TERN Advantage</h2>
+        <p class="text-brand-grey-dark max-w-2xl mx-auto">Providing the resources and connections students need to thrive in a professional environment.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {[
+          { title: 'Research-Driven', desc: 'Our approach is backed by deep analysis of current workforce trends and student needs.', icon: '📊' },
+          { title: 'Professional Network', desc: 'Connecting students with experienced professionals outside their immediate circle.', icon: '🤝' },
+          { title: 'Soft Skill Focus', desc: 'Bridging the gap in communication and networking abilities valued by employers.', icon: '💡' }
+        ].map(feature => (
+          <div class="glass-card p-8 hover:scale-105 transition-transform duration-300">
+            <div class="text-4xl mb-6">{feature.icon}</div>
+            <h3 class="text-xl font-bold mb-4">{feature.title}</h3>
+            <p class="text-brand-grey-dark leading-relaxed">{feature.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</Layout>
