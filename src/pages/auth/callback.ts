@@ -4,7 +4,8 @@ export async function GET(context) {
   try {
     const { url, locals } = context;
     const code = url.searchParams.get("code");
-    const env = locals?.runtime?.env || (globalThis as any);
+    const runtime = locals.runtime;
+    const env = runtime?.env;
     const client_id = env?.GITHUB_CLIENT_ID;
     const client_secret = env?.GITHUB_CLIENT_SECRET;
 
@@ -63,6 +64,6 @@ export async function GET(context) {
       headers: { "Content-Type": "text/html" },
     });
   } catch (err) {
-    return new Response(`Critical Callback Crash: ${err.message}\nStack: ${err.stack}`, { status: 500 });
+    return new Response(`Astro 6 Callback Error: ${err.message}`, { status: 500 });
   }
 }
